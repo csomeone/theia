@@ -15,9 +15,10 @@ import { CommandContribution, MenuContribution } from "@theia/core";
 export default new ContainerModule(bind => {
     bind(QuickSearchInWorkspace).toSelf().inSingletonScope();
 
-    bind(CommandContribution).to(SearchInWorkspaceContributions).inSingletonScope();
-    bind(MenuContribution).to(SearchInWorkspaceContributions).inSingletonScope();
-    bind(KeybindingContribution).to(SearchInWorkspaceContributions).inSingletonScope();
+    bind(SearchInWorkspaceContributions).toSelf().inSingletonScope();
+    bind(CommandContribution).toService(SearchInWorkspaceContributions);
+    bind(MenuContribution).toService(SearchInWorkspaceContributions);
+    bind(KeybindingContribution).toService(SearchInWorkspaceContributions);
 
     // The object that gets notified of search results.
     bind(SearchInWorkspaceClientImpl).toSelf().inSingletonScope();
